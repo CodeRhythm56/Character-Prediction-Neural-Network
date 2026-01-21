@@ -1,6 +1,7 @@
 # Character-Prediction-Neural-Network
 This is a simple and begineer friendly neural network I built while learning about keras and tensorflow. This version of the code is a non optimized and slow on cpu, which i am looking forward to further edits. 
 This project uses a recurrent neural network (LSTM) to learn the structure of language from a text file and generate new text character by character. 
+
 Model Architecture 
 
 The model is built using the Keras Sequential API and consists of three layers. 
