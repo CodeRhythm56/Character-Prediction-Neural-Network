@@ -46,4 +46,17 @@ Once trained, the model can be used to create new text.
      Prediction: The model predicts the probabilities for the next character.
      Temperature Sampling: To prevent repetitive output, the probabilities are adjusted by a temperature value before sampling. This allows the model to pick slightly less probable characters occasionally, adding creativity to the text.
      Sliding Window: The chosen character is appended to the end of the input sequence, and the first character is removed. This new sequence is fed back into the model. This process repeats for the desired length of the generated text.
-     
+
+
+# Code Optimization
+
+The initial implementation used standard Python lists to construct the training dataset. This approach resulted in high memory consumption because it required storing every possible sequence in RAM simultaneously before converting it into a NumPy array. 
+
+## Changes
+
+The code has been migrated from manual list generation to the TensorFlow Data API (`tf.data`). This creates a streaming pipeline that prepares data one batch at a time.
+
+*   **Logic:** Uses `tf.data.Dataset.from_tensor_slices` and `window` methods.
+*   **Storage:** Data remains as a TensorFlow Tensor; sequences are generated on the fly.
+*   **Loading:** Batches are created dynamically as the model requests them using `.batch()` and `.prefetch()`.
+*   **Result:** Constant, low RAM usage regardless of text file size.
